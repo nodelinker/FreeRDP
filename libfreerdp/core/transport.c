@@ -1069,6 +1069,15 @@ int transport_check_fds(rdpTransport* transport)
 		if (!(transport->ReceiveBuffer = StreamPool_Take(transport->ReceivePool, 0)))
 			return -1;
 
+
+		WLog_INFO(TAG, "+++++++++++++++ transport->ReceiveBuffer detail +++++++++++++++++");
+		for (init i = 0 ; i < received->length; i++){
+			if (i % 8 == 0){
+				prtintf("\n");
+			}
+			printf("%08x ", received->buffer[i])
+		}
+
 		/**
 		 * status:
 		 * 	-1: error
@@ -1081,6 +1090,7 @@ int transport_check_fds(rdpTransport* transport)
 		/* session redirection or activation */
 		if (recv_status == 1 || recv_status == 2)
 		{
+			WLog_INFO(TAG, "+++++++++++++++  transport_check_fds -> transport->ReceiveCallback return status %ld +++++++++++++++++", recv_status);
 			return recv_status;
 		}
 
@@ -1100,6 +1110,7 @@ int transport_check_fds(rdpTransport* transport)
 		transport->haveMoreBytesToRead = TRUE;
 	}
 
+	WLog_INFO(TAG, "++++++++++++++  transport_check_fds XXXX return status 0 +++++++++++++++++++");
 	return 0;
 }
 
