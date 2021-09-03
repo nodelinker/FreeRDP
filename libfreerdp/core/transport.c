@@ -1075,7 +1075,7 @@ int transport_check_fds(rdpTransport* transport)
 			if (i % 8 == 0){
 				prtintf("\n");
 			}
-			printf("%08x ", received->buffer[i])
+			printf("%08x ", received->buffer[i]);
 		}
 
 		/**
