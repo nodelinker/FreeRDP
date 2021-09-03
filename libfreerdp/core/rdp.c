@@ -1714,7 +1714,9 @@ BOOL rdp_send_error_info(rdpRdp* rdp)
 int rdp_check_fds(rdpRdp* rdp)
 {
 	int status;
+	transport->tsg = rdp->transport;
 	rdpTransport* transport = rdp->transport;
+
 
 	if (transport->tsg)
 	{
