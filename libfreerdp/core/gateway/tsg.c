@@ -1943,11 +1943,24 @@ BOOL tsg_recv_pdu(rdpTsg* tsg, RPC_PDU* pdu)
 
 BOOL tsg_check_event_handles(rdpTsg* tsg)
 {
-	if (rpc_client_in_channel_recv(tsg->rpc) < 0)
-		return FALSE;
 
-	if (rpc_client_out_channel_recv(tsg->rpc) < 0)
+	WLog_INFO(TAG, "++++++++++++++++++++++  rpc_client_in_channel_recv tsg##check line:1947 "
+	               "++++++++++++++++++++++++++++++++");
+	if (rpc_client_in_channel_recv(tsg->rpc) < 0)
+	{
+		WLog_INFO(TAG, "++++++++++++++++++++++  rpc_client_in_channel_recv FALSE tsg##check line:1947 "
+		               "++++++++++++++++++++++++++++++++");
 		return FALSE;
+	}
+
+	WLog_INFO(TAG, "++++++++++++++++++++++  rpc_client_in_channel_recv tsg##check line:1947 "
+	               "++++++++++++++++++++++++++++++++");
+	if (rpc_client_out_channel_recv(tsg->rpc) < 0)
+	{
+		WLog_INFO(TAG, "++++++++++++++++++++++  rpc_client_in_channel_recv FALSE tsg##check line:1947 "
+		               "++++++++++++++++++++++++++++++++");
+		return FALSE;
+	}
 
 	return TRUE;
 }

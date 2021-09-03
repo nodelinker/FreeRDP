@@ -1718,6 +1718,8 @@ int rdp_check_fds(rdpRdp* rdp)
 
 	if (transport->tsg)
 	{
+
+		WLog_INFO(TAG, "++++++++++++++++++++++  rdp_check_fds tsg##check line:1722 ++++++++++++++++++++++++++++++++");
 		rdpTsg* tsg = transport->tsg;
 
 		if (!tsg_check_event_handles(tsg))
@@ -1725,13 +1727,18 @@ int rdp_check_fds(rdpRdp* rdp)
 			WLog_ERR(TAG, "rdp_check_fds: tsg_check_event_handles()");
 			return -1;
 		}
+		WLog_INFO(TAG, "++++++++++++++++++++++  rdp_check_fds tsg##check line:1730 ++++++++++++++++++++++++++++++++");
 
-		if (tsg_get_state(tsg) != TSG_STATE_PIPE_CREATED)
+		TSG_STATE tsgStatus = tsg_get_state(tsg);
+
+		WLog_INFO(TAG, "++++++++++++++++++++++  rdp_check_fds tsg##check %ld ++++++++++++++++++++++++++++++++", tsgStatus);
+		if (tsgStatus != TSG_STATE_PIPE_CREATED)
 			return 1;
 	}
 
+	WLog_INFO(TAG, "++++++++++++++++++++++  rdp_check_fds line:1735 ++++++++++++++++++++++++++++++++");
 	status = transport_check_fds(transport);
-
+	WLog_INFO(TAG, "++++++++++++++++++++++  rdp_check_fds line:1737 ++++++++++++++++++++++++++++++++");
 	if (status == 1)
 	{
 		if (!rdp_client_redirect(rdp)) /* session redirection */
