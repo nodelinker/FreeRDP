@@ -1212,6 +1212,7 @@ int rdp_client_transition_to_state(rdpRdp* rdp, int state)
 			break;
 	}
 
+	/*
 	{
 		ConnectionStateChangeEventArgs stateEvent;
 		rdpContext* context = rdp->context;
@@ -1219,7 +1220,7 @@ int rdp_client_transition_to_state(rdpRdp* rdp, int state)
 		stateEvent.state = rdp->state;
 		stateEvent.active = rdp->state == CONNECTION_STATE_ACTIVE;
 		PubSub_OnConnectionStateChange(context->pubSub, context, &stateEvent);
-	}
+	}*/
 
 	return status;
 }

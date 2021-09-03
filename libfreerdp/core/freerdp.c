@@ -118,6 +118,9 @@ BOOL freerdp_connect(freerdp* instance)
 	/* --authonly tests the connection without a UI */
 	if (instance->settings->AuthenticationOnly)
 	{
+
+
+WLog_ERR(TAG, "inbytes %llu inpacket %llu, outbyte %llu, outpackets %llu", rdp->inBytes, rdp->inPackets, rdp->outBytes, rdp->outPackets);
 		WLog_ERR(TAG, "Authentication only, exit status %" PRId32 "", !status);
 		goto freerdp_connect_finally;
 	}

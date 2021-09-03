@@ -614,6 +614,8 @@ static int fastpath_recv_update_data(rdpFastPath* fastpath, wStream* s)
 		}
 		else if (fragmentation == FASTPATH_FRAGMENT_LAST)
 		{
+			WLog_ERR(TAG, "Total size (%" PRIuz ") exceeds MultifragMaxRequestSize (%" PRIu32 ")",
+			         totalSize, transport->settings->MultifragMaxRequestSize);
 			if ((fastpath->fragmentation != FASTPATH_FRAGMENT_FIRST) &&
 			    (fastpath->fragmentation != FASTPATH_FRAGMENT_NEXT))
 			{
