@@ -229,6 +229,7 @@ static int rpc_client_recv_pdu(rdpRpc* rpc, RPC_PDU* pdu)
 				                                           VIRTUAL_CONNECTION_STATE_OPENED);
 				rpc_client_transition_to_state(rpc, RPC_CLIENT_STATE_ESTABLISHED);
 
+				WLog_INFO(TAG, "XXXX rpc_send_bind_pdu ---------------------------+++++++++++++++++++++++++");
 				if (rpc_send_bind_pdu(rpc) < 0)
 				{
 					WLog_ERR(TAG, "rpc_send_bind_pdu failure");
@@ -369,6 +370,7 @@ static int rpc_client_recv_fragment(rdpRpc* rpc, wStream* fragment)
 		if (!call)
 			return -1;
 
+		WLog_INFO(TAG, "++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 		if (call->OpNum != TsProxySetupReceivePipeOpnum)
 		{
 			if (!Stream_EnsureCapacity(pdu->s, header->response.alloc_hint))
@@ -379,6 +381,8 @@ static int rpc_client_recv_fragment(rdpRpc* rpc, wStream* fragment)
 
 			if (header->response.alloc_hint == StubLength)
 			{
+				WLog_INFO(TAG, "XXXX rpc_client_recv_fragment number 1 ---------------------------+++++++++++++++++++++++++");
+
 				pdu->Flags = RPC_PDU_FLAG_STUB;
 				pdu->Type = PTYPE_RESPONSE;
 				pdu->CallId = rpc->StubCallId;
@@ -418,6 +422,7 @@ static int rpc_client_recv_fragment(rdpRpc* rpc, wStream* fragment)
 			Stream_Write(pdu->s, buffer, Stream_Length(fragment));
 			Stream_SealLength(pdu->s);
 
+			WLog_INFO(TAG, "XXXX rpc_client_recv_fragment number 2 ---------------------------+++++++++++++++++++++++++");
 			if (rpc_client_recv_pdu(rpc, pdu) < 0)
 				return -1;
 
@@ -442,6 +447,8 @@ static int rpc_client_recv_fragment(rdpRpc* rpc, wStream* fragment)
 
 		Stream_Write(pdu->s, buffer, Stream_Length(fragment));
 		Stream_SealLength(pdu->s);
+
+		WLog_INFO(TAG, "XXXX rpc_client_recv_fragment number 3 ---------------------------+++++++++++++++++++++++++");
 
 		if (rpc_client_recv_pdu(rpc, pdu) < 0)
 			return -1;
