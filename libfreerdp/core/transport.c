@@ -1071,7 +1071,7 @@ int transport_check_fds(rdpTransport* transport)
 
 
 		WLog_INFO(TAG, "+++++++++++++++ transport->ReceiveBuffer detail +++++++++++++++++");
-		for (init i = 0 ; i < received->length; i++){
+		for (int i = 0 ; i < received->length; i++){
 			if (i % 8 == 0){
 				prtintf("\n");
 			}
